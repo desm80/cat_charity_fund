@@ -4,7 +4,7 @@ from typing import Optional
 from pydantic import BaseModel, Field, PositiveInt, Extra
 
 
-TIME_EXAMPLE = datetime.now().strftime('%Y-%m-%dT%H:%M')
+TIME_EXAMPLE = datetime.now().isoformat(timespec='minutes')
 
 
 class CharityProjectCreate(BaseModel):
