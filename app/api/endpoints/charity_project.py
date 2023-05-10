@@ -11,11 +11,7 @@ from app.services.charity_project import investment
 router = APIRouter()
 
 
-@router.post(
-    '/',
-    response_model=CharityProjectDB,
-    response_model_exclude_none=True,
-)
+@router.post('/', response_model=CharityProjectDB)
 async def create_new_project(
         charity_project: CharityProjectCreate,
         session: AsyncSession = Depends(get_async_session),
@@ -25,11 +21,7 @@ async def create_new_project(
     return new_project
 
 
-@router.get(
-    "/",
-    response_model=List[CharityProjectDB],
-    response_model_exclude_none=True,
-)
+@router.get("/", response_model=List[CharityProjectDB])
 async def get_all_charity_projects(
     session: AsyncSession = Depends(get_async_session),
 ):
