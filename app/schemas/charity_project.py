@@ -1,8 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field, PositiveInt, Extra
-
+from pydantic import BaseModel, Field, PositiveInt, Extra, validator
 
 TIME_EXAMPLE = datetime.now().isoformat(timespec='minutes')
 
@@ -29,6 +28,13 @@ class CharityProjectDB(CharityProjectCreate):
     fully_invested: bool
     create_date: datetime = Field(..., example=TIME_EXAMPLE)
     close_date: Optional[datetime] = Field(None, example=TIME_EXAMPLE)
+
+    @validator('create_date', 'close_date')
+    def date_to_isoformat(cls, value):
+        if value is not None:
+            return value.isoformat(timespec='minutes')
+
+
 
     class Config:
         orm_mode = True
