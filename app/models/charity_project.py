@@ -1,0 +1,6 @@
+from app.models.base_model import BaseAbstractModel
+
+
+class ChatityProject(BaseAbstractModel):
+    name = ...
+    description = ...
