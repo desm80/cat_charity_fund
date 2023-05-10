@@ -34,7 +34,5 @@ class CharityProjectDB(CharityProjectCreate):
         if value is not None:
             return value.isoformat(timespec='minutes')
 
-
-
     class Config:
         orm_mode = True
