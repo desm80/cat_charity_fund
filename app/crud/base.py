@@ -1,4 +1,3 @@
-import time
 from typing import Optional
 
 from fastapi.encoders import jsonable_encoder
@@ -48,7 +47,6 @@ class CRUDBase:
         session.add(db_obj)
         await session.commit()
         await session.refresh(db_obj)
-        time.sleep(1)
         return db_obj
 
     async def update(
@@ -76,16 +74,3 @@ class CRUDBase:
         await session.delete(db_obj)
         await session.commit()
         return db_obj
-
-    # async def get_by_attribute(
-    #         self,
-    #         attr_name: str,
-    #         attr_value: str,
-    #         session: AsyncSession,
-    # ):
-    #     attr = getattr(self.model, attr_name)
-    #     db_obj = await session.execute(
-    #         select(self.model).where(attr == attr_value)
-    #     )
-    #     return db_obj.scalars().first()
-

@@ -29,11 +29,10 @@ class CharityProjectDB(CharityProjectCreate):
     create_date: datetime = Field(..., example=TIME_EXAMPLE)
     close_date: Optional[datetime] = Field(None, example=TIME_EXAMPLE)
 
-    @validator('create_date', 'close_date')
-    def date_to_isoformat(cls, value):
-        if value is not None:
-            value = value
-            return value.isoformat(timespec='seconds')
+    # @validator('create_date', 'close_date')
+    # def date_to_isoformat(cls, value):
+    #     if value is not None:
+    #         return value.isoformat(timespec='seconds')
 
     class Config:
         orm_mode = True
