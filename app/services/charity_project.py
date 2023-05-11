@@ -26,9 +26,10 @@ async def investment(
         money_to_invest = (
             current_donation.full_amount - current_donation.invested_amount
         )
-        if charity_project.full_amount > money_to_invest:
+        if ((charity_project.full_amount - charity_project.invested_amount) >
+                money_to_invest):
             charity_project.invested_amount += money_to_invest
-            current_donation.invested_amount = money_to_invest
+            current_donation.invested_amount += money_to_invest
             mark_as_invested(current_donation)
         else:
             charity_project.invested_amount = charity_project.full_amount
