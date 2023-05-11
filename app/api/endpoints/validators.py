@@ -37,7 +37,7 @@ async def check_project_is_invested_or_closed(project: CharityProject):
     if project.fully_invested or project.invested_amount != 0:
         raise HTTPException(
             status_code=400,
-            detail="Закрытый или проинвестированный проект нельзя удалять!",
+            detail="В проект были внесены средства, не подлежит удалению!",
         )
 
 
@@ -49,12 +49,13 @@ async def check_project_fully_invested(project: CharityProject):
         )
 
 
-async def check_full_amount(
+async def check_full_amount_smaller_already_invested(
         project: CharityProject,
-        obg_in: CharityProjectUpdate,
+        obj_in: CharityProjectUpdate
 ):
-    if project.full_amount > obg_in.full_amount:
-        raise HTTPException(
-            status_code=400,
-            detail='Нельзя уменьшать сумму инвестирования!',
-        )
+    if obj_in.full_amount:
+        if obj_in.full_amount < project.invested_amount:
+            raise HTTPException(
+                status_code=400,
+                detail='Нельзя устанавливать требуемую сумму меньше внесённой!'
+            )

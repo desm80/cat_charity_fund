@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
 
 from pydantic import BaseModel, Field, PositiveInt, validator
@@ -32,4 +32,4 @@ class GetAllDonations(DonationDB):
     @validator('close_date')
     def date_to_isoformat(cls, value):
         if value is not None:
-            return value.isoformat(timespec='minutes')
+            return value.isoformat(timespec='seconds')

@@ -1,3 +1,4 @@
+import time
 from typing import Optional
 
 from fastapi.encoders import jsonable_encoder
@@ -47,6 +48,7 @@ class CRUDBase:
         session.add(db_obj)
         await session.commit()
         await session.refresh(db_obj)
+        time.sleep(1)
         return db_obj
 
     async def update(

@@ -32,6 +32,7 @@ class CharityProjectDB(CharityProjectCreate):
     @validator('create_date', 'close_date')
     def date_to_isoformat(cls, value):
         if value is not None:
+            value = value
             return value.isoformat(timespec='seconds')
 
     class Config:
