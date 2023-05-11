@@ -16,7 +16,7 @@ async def investment(
         session: AsyncSession,
 ):
     donation_obj = await session.execute(
-        select(Donation).where(Donation.fully_invested == False).order_by(
+        select(Donation).where(Donation.fully_invested == 0).order_by(
             Donation.id)
     )
     donation_obj = donation_obj.scalars().all()
@@ -24,7 +24,7 @@ async def investment(
             charity_project.invested_amount):
         current_donation = donation_obj.pop()
         money_to_invest = (
-                current_donation.full_amount - current_donation.invested_amount
+            current_donation.full_amount - current_donation.invested_amount
         )
         if charity_project.full_amount > money_to_invest:
             charity_project.invested_amount += money_to_invest
@@ -44,8 +44,3 @@ async def investment(
     await session.commit()
     await session.refresh(charity_project)
     return charity_project
-
-
-
-
-

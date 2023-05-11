@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey, Text
+from sqlalchemy import Column, ForeignKey, Integer, Text
 
 from app.models.base_model import BaseAbstractModel
 
@@ -9,4 +9,3 @@ class Donation(BaseAbstractModel):
         ForeignKey('user.id', name='fk_donation_user_id_user')
     )
     comment = Column(Text, nullable=True)
-

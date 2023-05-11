@@ -17,7 +17,7 @@ async def investment(
 ):
     charity_obj = await session.execute(
         select(CharityProject).where(
-            CharityProject.fully_invested == False).order_by(
+            CharityProject.fully_invested == 0).order_by(
             CharityProject.id)
     )
     charity_obj = charity_obj.scalars().all()[::-1]
@@ -25,7 +25,7 @@ async def investment(
             donation.invested_amount):
         current_project = charity_obj.pop()
         money_to_invest = (
-                current_project.full_amount - current_project.invested_amount
+            current_project.full_amount - current_project.invested_amount
         )
         if donation.full_amount > money_to_invest:
             current_project.invested_amount += money_to_invest
