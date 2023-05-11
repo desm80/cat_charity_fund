@@ -15,13 +15,17 @@ router = APIRouter()
 @router.get(
     "/",
     response_model=List[GetAllDonations],
+    response_model_exclude_none=True,
     dependencies=[Depends(current_superuser)],
 )
 async def get_all_donation(session: AsyncSession = Depends(get_async_session)):
     return await donation_crud.get_multi(session)
 
 
-@router.get("/my", response_model=list[DonationDB])
+@router.get("/my",
+            response_model=list[DonationDB],
+            response_model_exclude_none=True,
+)
 async def get_user_donations(
     user: User = Depends(current_user),
     session: AsyncSession = Depends(get_async_session),
@@ -31,14 +35,14 @@ async def get_user_donations(
 
 @router.post(
     "/",
-    response_model_exclude_none=True,
     response_model=DonationDB,
+    response_model_exclude_none=True,
 )
 async def create_donation(
     donation: DonationBase,
     session: AsyncSession = Depends(get_async_session),
     user: User = Depends(current_user),
 ):
-    new_donation = await donation_crud.create(donation, session, user)
-    new_donation = await investment(new_donation, session)
-    return new_donation
+    donation = await donation_crud.create(donation, session, user)
+    donation = await investment(donation, session)
+    return donation

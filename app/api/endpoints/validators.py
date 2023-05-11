@@ -15,7 +15,7 @@ async def check_name_duplicate(
     )
     if project_id is not None:
         raise HTTPException(
-            status_code=422,
+            status_code=400,
             detail='Проект с таким именем уже существует!',
         )
 
@@ -55,6 +55,6 @@ async def check_full_amount(
 ):
     if project.full_amount > obg_in.full_amount:
         raise HTTPException(
-            status_code=422,
+            status_code=400,
             detail='Нельзя уменьшать сумму инвестирования!',
         )

@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field, PositiveInt, validator
 
-TIME_EXAMPLE = datetime.now().isoformat(timespec='minutes')
+TIME_EXAMPLE = datetime.now().isoformat(timespec='seconds')
 
 
 class DonationBase(BaseModel):
@@ -17,7 +17,7 @@ class DonationDB(DonationBase):
 
     @validator('create_date')
     def date_to_isoformat(cls, value):
-        return value.isoformat(timespec='minutes')
+        return value.isoformat(timespec='seconds')
 
     class Config:
         orm_mode = True
