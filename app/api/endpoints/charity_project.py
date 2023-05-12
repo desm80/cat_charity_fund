@@ -51,7 +51,7 @@ async def remove_charity_project(
 ):
     """Только для суперюзеров."""
     project = await check_project_exists(project_id, session)
-    await check_project_is_invested_or_closed(project)
+    check_project_is_invested_or_closed(project)
     project = await charity_project_crud.remove(project, session)
     return project
 
@@ -67,8 +67,8 @@ async def update_charity_project(
     """Только для суперюзеров."""
     await check_name_duplicate(obj_in.name, session)
     project = await check_project_exists(project_id, session)
-    await check_project_fully_invested(project)
-    await check_full_amount_smaller_already_invested(project, obj_in)
+    check_project_fully_invested(project)
+    check_full_amount_smaller_already_invested(project, obj_in)
     project = await charity_project_crud.update(
         project, obj_in, session
     )
