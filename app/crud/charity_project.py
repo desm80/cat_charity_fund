@@ -1,6 +1,7 @@
+from pprint import pprint
 from typing import Optional
 
-from sqlalchemy import select
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.crud.base import CRUDBase
